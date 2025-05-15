@@ -828,10 +828,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: '[MenuHomeView]'
       objectReference: {fileID: 0}
-    - target: {fileID: 6529894131517584989, guid: bff25ad74c0e27f479bdf44ca08dec3c, type: 3}
-      propertyPath: m_Alpha
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
