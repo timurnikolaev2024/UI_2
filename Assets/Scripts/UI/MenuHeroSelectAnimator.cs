@@ -6,7 +6,7 @@ using UnityEngine.Serialization;
 namespace DefaultNamespace
 {
     [RequireComponent(typeof(RectTransform), typeof(CanvasGroup))]
-    public class SlideInCanvasAnimator : MonoBehaviour
+    public class MenuHeroSelectAnimator : MonoBehaviour
     {
         [Header("Slide Settings")]
         [SerializeField] private float _slideDistance = 1800f;
@@ -19,6 +19,8 @@ namespace DefaultNamespace
         private CanvasGroup _canvasGroup;
         private Vector2 _originalPos;
         private Tween _currentTween;
+        
+        public event Action OnShown;
 
         private void Update()
         {
@@ -56,6 +58,7 @@ namespace DefaultNamespace
                     {
                         _canvasGroup.interactable = true;
                         _canvasGroup.blocksRaycasts = true;
+                        UIEventBus.Publish(new ShowSelectHeroEndedEvent());
                     });
             });
         }

@@ -19,17 +19,9 @@ namespace DefaultNamespace
 
         private Tween _currentTween;
 
-        private void Update()
-        {
-            // if(Input.GetKeyDown(KeyCode.Space))
-            //     Show();
-            //
-            // if(Input.GetKeyDown(KeyCode.LeftShift))
-            //     Hide();
-        }
-
         public void Show()
         {
+            //UIEventBus.Publish(new ShowHomeStartedEvent());
             _currentTween?.Kill();
 
             DOVirtual.DelayedCall(_startDelay, () =>
@@ -46,6 +38,7 @@ namespace DefaultNamespace
                         gameObject.transform.DOScale(1f, _durationOut)
                             .SetEase(Ease.OutQuad);
                         _canvasGroup.blocksRaycasts = true;
+                        //UIEventBus.Publish(new ShowHomeEndedEvent());
                     });
             });
         }

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using DefaultNamespace.Info;
+using UnityEngine;
 
 namespace DefaultNamespace
 {
@@ -14,16 +15,18 @@ namespace DefaultNamespace
             _homePresenter = new MenuHomePresenter(view.HomeView, this);
             _heroSelectPresenter = new MenuHeroSelectPresenter(view.HeroSelectView, this);
 
-            ShowHome();
+            UIEventBus.Subscribe<ShowHomeStartedEvent>(ShowHome);
+            UIEventBus.Subscribe<ShowSelectHeroStartedEvent>(ShowHeroSelect);
+            UIEventBus.Publish(new ShowHomeStartedEvent());
         }
 
-        public void ShowHome()
+        public void ShowHome(ShowHomeStartedEvent e)
         {
             _view.HomeView.Show();
             _view.HeroSelectView.Hide();
         }
 
-        public void ShowHeroSelect()
+        public void ShowHeroSelect(ShowSelectHeroStartedEvent e)
         {
             _view.HomeView.Hide();
             _view.HeroSelectView.Show();

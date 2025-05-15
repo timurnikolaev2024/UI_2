@@ -6,26 +6,20 @@ namespace DefaultNamespace
     public class MenuHeroSelectItemPresenter
     {
         private readonly MenuHeroSelectItemView _view;
-        private readonly string _name;
-        private readonly Sprite _icon;
+        public HeroModel Hero { get; }
 
-        public Sprite Icon => _icon;
-
-        public MenuHeroSelectItemPresenter(
-            MenuHeroSelectItemView view,
-            string name,
-            float progress,
-            Action<MenuHeroSelectItemPresenter> onSelected)
+        public MenuHeroSelectItemPresenter(MenuHeroSelectItemView view, HeroModel hero)
         {
             _view = view;
-            _name = name;
-            _icon = view.GetIcon();
+            view.SetIcon(hero.Config.icon);
+            Hero = hero;
 
-            view.SetName(name);
-            view.SetIcon(_icon);
-            view.AnimateProgress(progress);
-            view.SetSelected(false);
-            view.SetClickListener(() => onSelected?.Invoke(this));
+            SetSelected(false);
+
+            _view.OnClicked += () =>
+            {
+                PlayerData.Instance.SelectHero(Hero);
+            };
         }
 
         public void SetSelected(bool selected)

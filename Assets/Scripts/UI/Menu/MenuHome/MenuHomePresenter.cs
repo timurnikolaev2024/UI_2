@@ -4,7 +4,10 @@
     {
         public MenuHomePresenter(MenuHomeView view, MenuPresenter menu)
         {
-            view.ChooseHeroButton.onClick.AddListener(menu.ShowHeroSelect);
+            view.ChooseHeroButton.onClick.AddListener(() =>
+            {
+                UIEventBus.Publish(new ShowSelectHeroStartedEvent());
+            });
         }
     }
 }
