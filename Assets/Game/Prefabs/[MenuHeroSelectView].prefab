@@ -451,9 +451,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1557302150180635586}
-  - component: {fileID: 2301116055042736166}
   - component: {fileID: 5159194559309302079}
   - component: {fileID: 2048517083153857716}
+  - component: {fileID: 6301784859483749652}
   m_Layer: 0
   m_Name: '[MenuHeroSelectView]'
   m_TagString: Untagged
@@ -485,24 +485,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 800, y: 1250}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &2301116055042736166
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1665977187069457890}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4b448524cde646f7a259244a5fa56cbb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _canvasGroup: {fileID: 5159194559309302079}
-  _backButton: {fileID: 3179592223869163537}
-  _itemsContainer: {fileID: 4773111547449367234}
-  _menuHeroSelectInfoView: {fileID: 1014524452589345389}
-  _menuHeroSelectPortraitView: {fileID: 916857003162218348}
-  _itemPrefab: {fileID: 1695748422892339861, guid: c10a2d2a6c772a34fac775fa5b4ece3d, type: 3}
 --- !u!225 &5159194559309302079
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -511,7 +493,7 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1665977187069457890}
   m_Enabled: 1
-  m_Alpha: 0
+  m_Alpha: 1
   m_Interactable: 0
   m_BlocksRaycasts: 0
   m_IgnoreParentGroups: 0
@@ -532,6 +514,24 @@ MonoBehaviour:
   _easeIn: 30
   _easeOut: 18
   _startDelay: 0.5
+--- !u!114 &6301784859483749652
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1665977187069457890}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3cbd9d29ec3541799e66633008950672, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 2048517083153857716}
+  progressWidget: {fileID: 662120033643676576}
+  imageWidget: {fileID: 6570116641383609610}
+  backButton: {fileID: 3179592223869163537}
+  _itemPrefab: {fileID: 1695748422892339861, guid: c10a2d2a6c772a34fac775fa5b4ece3d, type: 3}
+  _itemsContainer: {fileID: 4773111547449367234}
 --- !u!1 &3332866668974592740
 GameObject:
   m_ObjectHideFlags: 0
@@ -1110,7 +1110,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4143249717712299174}
   - component: {fileID: 1685175927145864338}
-  - component: {fileID: 1014524452589345389}
+  - component: {fileID: 662120033643676576}
+  - component: {fileID: 205593364803900310}
   m_Layer: 0
   m_Name: '[MenuHeroSelectInfoView]'
   m_TagString: Untagged
@@ -1149,7 +1150,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4897783438643573052}
   m_CullTransparentMesh: 1
---- !u!114 &1014524452589345389
+--- !u!114 &662120033643676576
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1158,16 +1159,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 4897783438643573052}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eb5d9068daa14edd92970c3f4446c608, type: 3}
+  m_Script: {fileID: 11500000, guid: 6eb042adad354a95b990a79572cd5689, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelText: {fileID: 2579427532196885456}
-  levelBar: {fileID: 6046059910754107240}
-  healthText: {fileID: 2591999591610694901}
-  healthBar: {fileID: 7259740194001707462}
-  attackText: {fileID: 8344109429426368824}
-  attackBar: {fileID: 1223437688618528235}
-  heroName: {fileID: 6675439807584644156}
+  canvasGroup: {fileID: 205593364803900310}
+--- !u!225 &205593364803900310
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4897783438643573052}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &5459641074210928104
 GameObject:
   m_ObjectHideFlags: 0
@@ -2081,6 +2088,8 @@ GameObject:
   - component: {fileID: 4128282148753393741}
   - component: {fileID: 7552697734643033456}
   - component: {fileID: 916857003162218348}
+  - component: {fileID: 6570116641383609610}
+  - component: {fileID: 752829895999554698}
   m_Layer: 0
   m_Name: '[MenuHeroSelectPortraitView]'
   m_TagString: Untagged
@@ -2156,6 +2165,32 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _wipeMaterial: {fileID: 2100000, guid: 8599133e303bf2543a9cc2442f1d3f86, type: 2}
   _transitionDuration: 0.5
+--- !u!114 &6570116641383609610
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8803944479844663190}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0ace6dc73af4b4ea47588935647d902, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canvasGroup: {fileID: 752829895999554698}
+  image: {fileID: 0}
+--- !u!225 &752829895999554698
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8803944479844663190}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &8840544606055157997
 GameObject:
   m_ObjectHideFlags: 0

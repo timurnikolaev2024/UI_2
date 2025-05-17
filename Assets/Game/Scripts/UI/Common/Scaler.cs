@@ -1,7 +1,7 @@
-﻿using System;
+﻿using Cysharp.Threading.Tasks;
 using DG.Tweening;
+using Game.Extensions;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Game.UI.Common
 {
@@ -15,49 +15,49 @@ namespace Game.UI.Common
         [SerializeField] private float _durationOut = 0.1f;
         [SerializeField] private Ease _easeIn = Ease.InQuad;
         [SerializeField] private Ease _easeOut = Ease.InQuad;
-        [SerializeField] private float _startDelay = 0.5f;
 
         private Tween _currentTween;
 
-        public void Show()
+        public async UniTask ShowAsync()
         {
             _currentTween?.Kill();
 
-            DOVirtual.DelayedCall(_startDelay, () =>
-            {
-                _canvasGroup.interactable = true;
-                _canvasGroup.alpha = 1f;
+            _canvasGroup.alpha = 1f;
+            _canvasGroup.interactable = true;
 
-                gameObject.transform.localScale = Vector3.one * 0.01f;
+            gameObject.transform.localScale = Vector3.one * 0.01f;
 
-                _currentTween = gameObject.transform.DOScale(_overshootScale, _durationIn)
-                    .SetEase(_easeIn)
-                    .OnComplete(() =>
-                    {
-                        gameObject.transform.DOScale(1f, _durationOut)
-                            .SetEase(Ease.OutQuad);
-                        _canvasGroup.blocksRaycasts = true;
-                    });
-            });
+            await gameObject.transform
+                .DOScale(_overshootScale, _durationIn)
+                .SetEase(_easeIn)
+                .ToUniTask();
+
+            await gameObject.transform
+                .DOScale(1f, _durationOut)
+                .SetEase(Ease.OutQuad)
+                .ToUniTask();
+
+            _canvasGroup.blocksRaycasts = true;
         }
 
-        public void Hide()
+        public async UniTask HideAsync()
         {
             _currentTween?.Kill();
-            
+
             _canvasGroup.blocksRaycasts = false;
-            gameObject.transform.DOScale(_overshootScale, _durationOut)
+
+            await gameObject.transform
+                .DOScale(_overshootScale, _durationOut)
                 .SetEase(Ease.InQuad)
-                .OnComplete(() =>
-                {
-                    gameObject.transform.DOScale(0.01f, _durationIn)
-                        .SetEase(_easeOut)
-                        .OnComplete(() =>
-                        {
-                            _canvasGroup.interactable = false;
-                            _canvasGroup.alpha = 0f;
-                        });
-                });
+                .ToUniTask();
+
+            await gameObject.transform
+                .DOScale(0.01f, _durationIn)
+                .SetEase(_easeOut)
+                .ToUniTask();
+
+            _canvasGroup.interactable = false;
+            _canvasGroup.alpha = 0f;
         }
 
         public void ResetState()

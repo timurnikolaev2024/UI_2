@@ -5,16 +5,16 @@ namespace Game.Core
     [CreateAssetMenu(fileName = "HeroConfig", menuName = "Game/HeroConfig")]
     public class HeroConfigSO : ScriptableObject
     {
-        public byte id;
-        public string heroName;
-        public int maxLevel;
-        public int currentLevel;
-        public int maxHealth;
-        public int currentHealth;
-        public int maxAttack;
-        public int currentAttack;
-        public Sprite icon;
-        public Sprite bigIcon;
-        public Color color;
+        public byte Id; 
+        public string HeroName;
+        public int MaxLevel;
+        public int CurrentLevel;
+        public int MaxHealth;
+        public int CurrentHealth;
+        public int MaxAttack;
+        public int CurrentAttack;
+        public Sprite Icon;
+        public Sprite BigIcon;
+        public Color Color;
     }
 }

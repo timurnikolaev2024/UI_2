@@ -1,56 +1,32 @@
-﻿using System.Collections.Generic;
-using Game.Events;
-using UnityEngine;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Game.Core
 {
-    public class PlayerData : MonoBehaviour
+    public class PlayerData
     {
-        public static PlayerData Instance { get; private set; }
+        public IReadOnlyList<HeroModel> Heroes  { get; }
+        public HeroModel                SelectedHero { get; private set; }
 
-        [Header("Available Hero Configs")]
-        [SerializeField] private List<HeroConfigSO> heroConfigs;
+        public event Action<HeroModel>  OnHeroSelected;
 
-        private List<HeroModel> _heroes = new();
-        private HeroModel _selectedHero;
-
-        public IReadOnlyList<HeroModel> Heroes => _heroes;
-        public HeroModel SelectedHero => _selectedHero;
-
-        private void Awake()
+        public PlayerData(IEnumerable<HeroConfigSO> heroConfigs)
         {
-            if (Instance != null)
-            {
-                Destroy(gameObject);
-                return;
-            }
+            Heroes = heroConfigs.Select(cfg => new HeroModel(cfg)).ToList();
 
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-
-            LoadHeroes();
-        }
-
-        private void LoadHeroes()
-        {
-            _heroes.Clear();
-
-            foreach (var config in heroConfigs)
-            {
-                var model = new HeroModel(config);
-                _heroes.Add(model);
-            }
-
-            SelectHero(_heroes.Count > 0 ? _heroes[0] : null);
+            // выбираем первого героя по умолчанию
+            if (Heroes.Count > 0)
+                SelectHero(Heroes[0]);
         }
 
         public void SelectHero(HeroModel hero)
         {
-            if (_heroes.Contains(hero))
-            {
-                _selectedHero = hero;
-                EventBus.Publish(new HeroSelectedEvent(hero));
-            }
+            if (hero == null || !Heroes.Contains(hero)) return;
+
+            SelectedHero = hero;
+            OnHeroSelected?.Invoke(hero);
         }
     }
+
 }

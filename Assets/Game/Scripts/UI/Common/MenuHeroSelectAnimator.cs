@@ -1,16 +1,12 @@
-﻿using System;
+﻿using Cysharp.Threading.Tasks;
 using DG.Tweening;
-using Game.Core;
-using Game.Events;
-using UnityEngine;
-using UnityEngine.Serialization;
+using Game.Extensions;
+using UnityEngine; 
 
 namespace Game.UI.Common
 {
-    [RequireComponent(typeof(RectTransform), typeof(CanvasGroup))]
     public class MenuHeroSelectAnimator : MonoBehaviour
     {
-        [Header("Slide Settings")]
         [SerializeField] private float _slideDistance = 1800f;
         [SerializeField] private float _slideDuration = 0.5f;
         [SerializeField] private Ease _easeIn = Ease.OutBounce;
@@ -27,50 +23,46 @@ namespace Game.UI.Common
             _rectTransform = GetComponent<RectTransform>();
             _canvasGroup = GetComponent<CanvasGroup>();
             _originalPos = _rectTransform.anchoredPosition;
-            _canvasGroup.alpha = 0f;
-            _canvasGroup.interactable = false;
-            _canvasGroup.blocksRaycasts = false;
+            ResetState();
         }
 
-        public void Show()
+        public async UniTask ShowAsync()
         {
             _currentTween?.Kill();
 
-            DOVirtual.DelayedCall(_startDelay, () =>
-            {
-                _rectTransform.anchoredPosition = _originalPos + Vector2.up * _slideDistance;
-                _canvasGroup.alpha = 1f;
-                _canvasGroup.interactable = false;
-                _canvasGroup.blocksRaycasts = false;
+            await UniTask.Delay(System.TimeSpan.FromSeconds(_startDelay));
 
-                _currentTween = _rectTransform.DOAnchorPos(_originalPos, _slideDuration)
-                    .SetEase(_easeIn)
-                    .OnComplete(() =>
-                    {
-                        _canvasGroup.interactable = true;
-                        _canvasGroup.blocksRaycasts = true;
-                        EventBus.Publish(new ShowSelectHeroEndedEvent());
-                    });
-            });
+            _rectTransform.anchoredPosition = _originalPos + Vector2.up * _slideDistance;
+            _canvasGroup.alpha = 1f;
+            _canvasGroup.interactable = false;
+            _canvasGroup.blocksRaycasts = false;
+
+            await _rectTransform
+                .DOAnchorPos(_originalPos, _slideDuration)
+                .SetEase(_easeIn)
+                .ToUniTask();
+
+            _canvasGroup.interactable = true;
+            _canvasGroup.blocksRaycasts = true;
         }
 
-        public void Hide()
+        public async UniTask HideAsync()
         {
             _currentTween?.Kill();
 
             _canvasGroup.interactable = false;
             _canvasGroup.blocksRaycasts = false;
 
-            _currentTween = _rectTransform.DOAnchorPos(_originalPos + Vector2.up * _slideDistance, _slideDuration)
+            await _rectTransform
+                .DOAnchorPos(_originalPos + Vector2.up * _slideDistance, _slideDuration)
                 .SetEase(_easeOut)
-                .OnComplete(() =>
-                {
-                    _canvasGroup.alpha = 0f;
-                    _rectTransform.anchoredPosition = _originalPos;
-                });
+                .ToUniTask();
+
+            _canvasGroup.alpha = 0f;
+            _rectTransform.anchoredPosition = _originalPos;
         }
 
-        public void ResetState()
+        private void ResetState()
         {
             _currentTween?.Kill();
             _rectTransform.anchoredPosition = _originalPos;
