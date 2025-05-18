@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02c5e6000f96412fb32243da37f77bed, type: 3}
+  m_Name: WindowCatalogue
+  m_EditorClassIdentifier: 
+  Windows:
+  - Id: 0
+    Prefab: {fileID: 3059825738515839694, guid: b5207c067b5abd84e810b4b9cd6fbf18, type: 3}
+    PresenterName: MainMenuPresenter
+    IsSingleton: 1
+  - Id: 1
+    Prefab: {fileID: 449384408738677633, guid: a4d80abda5388d54eb1c7b7462404710, type: 3}
+    PresenterName: HeroSelectPresenter
+    IsSingleton: 1
