@@ -7,7 +7,7 @@ using Zenject;
 namespace Game.UI
 {
     public sealed class HeroSelectPresenter
-        : PresenterBase<HeroSelectWindow>, IDisposable
+        : WindowPresenterBase<HeroSelectWindow>, IDisposable
     {
         private readonly WindowService _windows;
         private readonly MenuHeroSelectItemPresenter.Factory _itemFactory;

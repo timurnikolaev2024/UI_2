@@ -10,6 +10,7 @@ namespace Game.UI
         UniTask Hide();
     }
     
+    [RequireComponent(typeof(CanvasGroup))]
     public abstract class WindowBase : MonoBehaviour, IWindow
     {
         public abstract UniTask Show();

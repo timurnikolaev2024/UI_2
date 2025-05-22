@@ -2,13 +2,13 @@
 
 namespace Game.UI
 {
-    public abstract class PresenterBase<TView> : IWindowPresenter
+    public abstract class WindowPresenterBase<TView> : IWindowPresenter
         where TView : IWindow
     {
         protected TView Window { get; }
         IWindow IWindowPresenter.Window => Window;
 
-        protected PresenterBase(TView view) => Window = view;
+        protected WindowPresenterBase(TView view) => Window = view;
 
         public virtual UniTask InitializeAsync()
         {

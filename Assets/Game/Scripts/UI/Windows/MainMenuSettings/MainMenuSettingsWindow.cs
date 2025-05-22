@@ -3,32 +3,24 @@ using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Game.UI
+namespace Game.UI.Windows.MainMenuSettings
 {
-    public class MainMenuWindow : WindowBase, IMainMenuWindow
+    public class MainMenuSettingsWindow : WindowBase, IMainMenuSettingsWindow
     {
         [SerializeField] private Button _playButton;
-        [SerializeField] private Button _settingsButton;
         [SerializeField] private Scaler _scaler;
         
-        public event Action PlayClicked;
-        public event Action OnSettingsClicked;
+        public event Action OnBackClicked;
 
         public void Awake()
         {
             _playButton.onClick.AddListener(OnPlayButtonClicked);
-            _settingsButton.onClick.AddListener(OnSettingsButtonClicked);
             _scaler.ResetState();
         }
 
         private void OnPlayButtonClicked()
         {
-            PlayClicked?.Invoke();
-        }
-        
-        private void OnSettingsButtonClicked()
-        {
-            OnSettingsClicked?.Invoke();
+            OnBackClicked?.Invoke();
         }
 
         public override async UniTask Show()
@@ -44,7 +36,6 @@ namespace Game.UI
         public void OnDestroy()
         {
             _playButton.onClick.RemoveListener(OnPlayButtonClicked);
-            _settingsButton.onClick.RemoveListener(OnSettingsButtonClicked);
         }
     }
 }

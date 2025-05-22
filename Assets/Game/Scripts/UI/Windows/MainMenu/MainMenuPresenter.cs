@@ -3,7 +3,7 @@ using Cysharp.Threading.Tasks;
 
 namespace Game.UI
 {
-    public class MainMenuPresenter : PresenterBase<MainMenuWindow>, IDisposable
+    public class MainMenuPresenter : WindowPresenterBase<MainMenuWindow>, IDisposable
     {
         private readonly WindowService _windows;
 
@@ -16,7 +16,13 @@ namespace Game.UI
         public override UniTask InitializeAsync()
         {
             Window.PlayClicked += OnPlay;
+            Window.OnSettingsClicked += OnSettings;
             return UniTask.CompletedTask;
+        }
+
+        private async void OnSettings()
+        {
+            await _windows.OpenAsync(WindowId.Settings);
         }
 
         private async void OnPlay() 
@@ -27,6 +33,7 @@ namespace Game.UI
         public void Dispose()
         {
             Window.PlayClicked -= OnPlay;
+            Window.OnSettingsClicked -= OnSettings;
         }
     }
 

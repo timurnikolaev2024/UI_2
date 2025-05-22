@@ -1,6 +1,7 @@
 ﻿using System;
 using Game.Core;
 using Game.UI;
+using Game.UI.TypeResolver;
 using UnityEngine;
 using Zenject;
 
@@ -32,6 +33,10 @@ namespace Game.Installers
                     MenuHeroSelectItemPresenter,
                     MenuHeroSelectItemPresenter.Factory>()
                 .FromFactory<MenuHeroSelectItemPresenterFactory>();
+            
+            Container.Bind<ITypeResolver>()
+                .To<BasicTypeResolver>()
+                .AsSingle();
         }
     }
 }

@@ -16,8 +16,9 @@ MonoBehaviour:
   - Id: 0
     Prefab: {fileID: 3059825738515839694, guid: b5207c067b5abd84e810b4b9cd6fbf18, type: 3}
     PresenterName: MainMenuPresenter
-    IsSingleton: 1
   - Id: 1
     Prefab: {fileID: 449384408738677633, guid: a4d80abda5388d54eb1c7b7462404710, type: 3}
     PresenterName: HeroSelectPresenter
-    IsSingleton: 1
+  - Id: 2
+    Prefab: {fileID: 7508533627076527219, guid: 46126001541a1a949831f3782d506c89, type: 3}
+    PresenterName: MainMenuSettingsPresenter
