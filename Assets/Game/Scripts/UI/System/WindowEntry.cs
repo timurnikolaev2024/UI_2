@@ -13,7 +13,5 @@ namespace Game.UI
         public WindowBase Prefab;
 
         public string PresenterName;
-
-        public string PresenterType;
     }
 }
