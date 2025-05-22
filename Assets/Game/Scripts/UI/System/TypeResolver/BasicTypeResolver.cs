@@ -8,6 +8,7 @@ namespace Game.UI.TypeResolver
     public sealed class BasicTypeResolver : ITypeResolver
     {
         private readonly Dictionary<string, Type> _cache = new();
+        private readonly Assembly _assemblyToSearch = typeof(IWindowPresenter).Assembly;
 
         public Type Resolve(string presenterName)
         {
@@ -21,8 +22,7 @@ namespace Game.UI.TypeResolver
 
             if (type == null)
             {
-                var assembly = Assembly.GetExecutingAssembly();
-                type = assembly.GetTypes().FirstOrDefault(t =>
+                type = _assemblyToSearch.GetTypes().FirstOrDefault(t =>
                     t.FullName == presenterName || t.Name == presenterName);
             }
 
